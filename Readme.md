@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
-* Студент: [Irina](https://up.htmlacademy.ru/javascript/23/user/1651659).
-* Наставник: `Неизвестно`.
+* Студент: [Irina](https://htmlacademy.ru/profile/id1651659).
+* Наставник: [Артём Рудов](https://htmlacademy.ru/profile/artrudov).
 
 ---
 
