@@ -1,37 +1,48 @@
-//Функция, возвращающая случайное целое число из переданного диапазона включительно
-
-// Источник https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-
-function getRandomIntInclusive(min, max) {
+/**
+ * Функция, возвращающая случайное целое число из переданного диапазона включительно.
+ * @param {number} min - минимальное значение диапазона
+ * @param {number} max - максимальное значение диапазона
+ * @return {number} случайное целое число из выбранного диапазона
+ */
+const getRandomIntInclusive = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
 
-  if (min >= max) {
-    return 'О-ооооу! Кажется вы что-то напутали';
-  }
-
   if (min < 0) {
-    return 'Ииии вы опять что-то напутали';
+    return undefined;
   }
 
-  return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
-}
-
-getRandomIntInclusive(0,3);
-
-//Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно
-
-function getRandomCoordinates(min, max, numberOfDecimal) {
-  const resultCords = (Math.random() * (max - min) + min).toFixed(numberOfDecimal);
-
-  switch(min) {
-    case '>= max':
-      return 'О-ооооу! Кажется вы что-то напутали';
-    case '< 0':
-      return 'Ииии вы опять что-то напутали';
-    default:
-      return parseFloat(resultCords);
+  if (min >= max) {
+    const newMax = min;
+    min = max;
+    max = newMax;
   }
-}
 
-getRandomCoordinates(1.1,1.2,3);
+  const resultCords = Math.random() * (max - min + 1);
+
+  return Math.floor(resultCords) + min;
+};
+getRandomIntInclusive(10, 2);
+
+/**
+ * Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
+ * @param {number} min - минимальное значение диапазона
+ * @param {number} max - максимальное значение диапазона
+ * @return {number} случайное число с плавающей точкой из выбранного диапазона
+ */
+const getRandomCoordinates = (min, max, numberOfDecimal) => {
+  if (min < 0) {
+    return undefined;
+  }
+
+  if (min >= max) {
+    const newMax = min;
+    min = max;
+    max = newMax;
+  }
+
+  const resultCords = (Math.random() * (max - min + 1) + min).toFixed(numberOfDecimal);
+
+  return parseFloat(resultCords);
+};
+getRandomCoordinates(1.210, 1.300, 3);
