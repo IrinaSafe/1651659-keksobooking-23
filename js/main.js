@@ -45,32 +45,42 @@ const getRandomCoordinates = (min, max, numberOfDecimal) => {
   return parseFloat(resultCords);
 };
 
-const AVATAR_IMG_MIN = 1;
-const AVATAR_IMG_MAX = 10;
-const LAT_MIN = 35.65000;
-const LAT_MAX = 35.70000;
-const LNG_MIN = 139.70000;
-const LNG_MAX = 139.80000;
-const NUMBER_OF_DECIMAL = 5;
-const PRICE_MIN = 1000;
-const PRICE_MAX = 10000;
-const ROOMS_MIN = 1;
-const ROOMS_MAX = 4;
-const GUESTS_MIN = 1;
-const GUESTS_MAX = 8;
+const AvatarImage = {
+  MIN: 1,
+  MAX: 10,
+};
 
-const TITELS = [
-  'Дом №1',
-  'Дом №2',
-  'Дом №3',
-  'Дом №4',
-  'Дом №5',
-  'Дом №6',
-  'Дом №7',
-  'Дом №8',
-  'Дом №9',
-  'Дом №10',
-];
+const Lat = {
+  MIN: 35.65000,
+  MAX: 35.70000,
+};
+
+const Lng = {
+  MIN: 139.70000,
+  MAX: 139.80000,
+};
+
+const NUMBER_OF_DECIMAL = 5;
+
+const Price = {
+  MIN: 1000,
+  MAX: 10000,
+};
+
+const RoomsCount = {
+  MIN: 1,
+  MAX: 4,
+};
+
+const GuestsCount = {
+  MIN: 1,
+  MAX: 8,
+};
+
+const NUMBERS_OF_OFFERS = 10;
+const TITLES_LENGTH = 10;
+
+const TITLES = new Array(TITLES_LENGTH).fill(null).map((item, index) => `Дом №${index + 1}`);
 
 const DESCRIPTIONS = [
   'Дом у моря',
@@ -121,21 +131,21 @@ const getRandomIndexElement = (element) => getRandomIntInclusive(0, element.leng
  */
 const getRandomElement = (element) => element[getRandomIndexElement(element)];
 
-const generateObject = () => {
-  const lat = getRandomCoordinates(LAT_MIN, LAT_MAX, NUMBER_OF_DECIMAL);
-  const lng = getRandomCoordinates(LNG_MIN, LNG_MAX, NUMBER_OF_DECIMAL);
+const generateObject = (item, index) => {
+  const lat = getRandomCoordinates(Lat.MIN, Lat.MAX, NUMBER_OF_DECIMAL);
+  const lng = getRandomCoordinates(Lng.MIN, Lng.MAX, NUMBER_OF_DECIMAL);
 
   return {
     author: {
-      avatar: `img/avatars/user0${getRandomIntInclusive(AVATAR_IMG_MIN, AVATAR_IMG_MAX)}.png`,
+      avatar: `img/avatars/user0${getRandomIntInclusive(AvatarImage.MIN, AvatarImage.MAX)}.png`,
     },
     offer: {
-      title: getRandomElement(TITELS),
-      address: [lat, lng].join(', '),
-      price: getRandomIntInclusive(PRICE_MIN, PRICE_MAX),
+      title: TITLES[index],
+      address: `${lat}, ${lng}`,
+      price: getRandomIntInclusive(Price.MIN, Price.MAX),
       type: getRandomElement(TYPES),
-      rooms: getRandomIntInclusive(ROOMS_MIN, ROOMS_MAX),
-      guests: getRandomIntInclusive(GUESTS_MIN, GUESTS_MAX),
+      rooms: getRandomIntInclusive(RoomsCount.MIN, RoomsCount.MAX),
+      guests: getRandomIntInclusive(GuestsCount.MIN, GuestsCount.MAX),
       checkin: getRandomElement(TIME),
       checkout: getRandomElement(TIME),
       features: getRandomElement(FEATURES),
@@ -149,6 +159,5 @@ const generateObject = () => {
   };
 };
 
-const generateOffers = new Array(10).fill(null).map(() => generateObject());
-// eslint-disable-next-line no-console
-console.log(generateOffers);
+const generateOffers = new Array(NUMBERS_OF_OFFERS).fill(null).map(generateObject);
+generateOffers();
