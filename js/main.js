@@ -1,8 +1,12 @@
 import {generateOffers} from './data.js';
-import {generateCard} from './card.js';
+import {addElement} from './card.js';
 
 const NUMBERS_OF_OFFERS = 10;
 
 const offers = generateOffers(NUMBERS_OF_OFFERS);
-// eslint-disable-next-line no-unused-vars
-const testOffer = generateCard(offers[0]);
+const firstOffer = offers[0];
+const {author, offer} = firstOffer;
+
+const map = document.querySelector('#map-canvas');
+
+addElement(map, author, offer);
