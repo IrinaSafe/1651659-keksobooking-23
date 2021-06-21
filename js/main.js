@@ -1,5 +1,6 @@
 import {generateOffers} from './data.js';
 import {addElement} from './card.js';
+import './form.js';
 
 const NUMBERS_OF_OFFERS = 10;
 
