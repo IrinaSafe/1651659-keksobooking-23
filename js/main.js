@@ -1,5 +1,12 @@
 import {generateOffers} from './data.js';
+import {addElement} from './card.js';
 
 const NUMBERS_OF_OFFERS = 10;
 
-generateOffers(NUMBERS_OF_OFFERS);
+const offers = generateOffers(NUMBERS_OF_OFFERS);
+const firstOffer = offers[0];
+const {author, offer} = firstOffer;
+
+const map = document.querySelector('#map-canvas');
+
+addElement(map, author, offer);
