@@ -46,20 +46,15 @@ const validationTitle = () => {
 
   if (titleLength < TITLE_MIN_LENGTH) {
     title.setCustomValidity(`Добавьте еще ${TITLE_MIN_LENGTH - titleLength} символов`);
-    return title.reportValidity();
-  }
-
-  if (titleLength > TITLE_MAX_LENGTH) {
+  } else if (titleLength > TITLE_MAX_LENGTH) {
     title.setCustomValidity(`Удалите еще ${titleLength - TITLE_MAX_LENGTH} символов`);
-    return title.reportValidity();
-  }
-
-  if (title.validity.valueMissing) {
+  } else if (title.validity.valueMissing) {
     title.setCustomValidity('Введите заголовок');
-    return title.reportValidity();
+  } else {
+    title.setCustomValidity('');
   }
 
-  title.setCustomValidity('');
+  title.reportValidity();
 };
 
 title.addEventListener('input', validationTitle);
@@ -69,20 +64,15 @@ const validationPrice = () => {
 
   if (priceValue < typesPrice[type.value].minPrice && priceValue !== '') {
     price.setCustomValidity(`Цена не может быть меньше ${typesPrice[type.value].minPrice}`);
-    return price.reportValidity();
-  }
-
-  if (priceValue > MaxPrice) {
+  } else if (priceValue > MaxPrice) {
     price.setCustomValidity(`Цена не может быть больше ${MaxPrice}`);
-    return price.reportValidity();
-  }
-
-  if (price.validity.valueMissing) {
+  } else if (price.validity.valueMissing) {
     price.setCustomValidity('Введите цену');
-    return price.reportValidity();
+  } else {
+    price.setCustomValidity('');
   }
 
-  price.setCustomValidity('');
+  price.reportValidity();
 };
 
 price.addEventListener('input', validationPrice);
