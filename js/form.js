@@ -1,4 +1,13 @@
-import {MaxPrice, typesPrice, LOADING_MODE, INTERACTIVE_MODE, DEFAULT_CAPACITY, DEFAULT_ROOM, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH} from './components.js';
+import {
+  MaxPrice,
+  typesPrice,
+  LOADING_MODE,
+  INTERACTIVE_MODE,
+  DEFAULT_CAPACITY,
+  DEFAULT_ROOM,
+  TITLE_MIN_LENGTH,
+  TITLE_MAX_LENGTH
+} from './components.js';
 
 const map = document.querySelector('#map-canvas');
 const adForm = document.querySelector('.ad-form');
@@ -97,6 +106,17 @@ roomNumber.addEventListener('change', (evt) => {
 
 capacity.addEventListener('change', (evt) => {
   validationCapacity(roomNumber.value, evt.target.value, capacity);
+});
+
+const timein = document.querySelector('#timein');
+const timeout = document.querySelector('#timeout');
+
+timein.addEventListener('change', () => {
+  timeout.value = timein.value;
+});
+
+timeout.addEventListener('change', () => {
+  timein.value = timeout.value;
 });
 
 export {map};

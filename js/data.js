@@ -1,4 +1,18 @@
-import {AvatarImage, Lat, Lng, NUMBER_OF_DECIMAL, MaxPrice, RoomsCount, GuestsCount, TITLES_LENGTH, DESCRIPTIONS, FEATURES, TIME, PHOTO, typesPrice} from './components.js';
+import {
+  AvatarImage,
+  Lat,
+  Lng,
+  NUMBER_OF_DECIMAL,
+  MaxPrice,
+  RoomsCount,
+  GuestsCount,
+  TITLES_LENGTH,
+  DESCRIPTIONS,
+  FEATURES,
+  TIME,
+  PHOTO,
+  typesPrice
+} from './components.js';
 import {getRandomIntInclusive, getRandomCoordinates, getRandomElement} from './util.js';
 
 const TITLES = new Array(TITLES_LENGTH).fill(null).map((item, index) => `Дом №${index + 1}`);
