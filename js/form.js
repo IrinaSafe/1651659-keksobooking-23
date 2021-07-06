@@ -1,45 +1,16 @@
 import {
   MaxPrice,
   typesPrice,
-  LOADING_MODE,
-  INTERACTIVE_MODE,
-  DEFAULT_CAPACITY,
-  DEFAULT_ROOM,
   TITLE_MIN_LENGTH,
-  TITLE_MAX_LENGTH
+  TITLE_MAX_LENGTH,
+  DEFAULT_CAPACITY,
+  DEFAULT_ROOM
 } from './components.js';
 
-const map = document.querySelector('#map-canvas');
-const adForm = document.querySelector('.ad-form');
-const adFormElements = adForm.elements;
-const mapFilters = document.querySelector('.map__filters');
-const mapFiltersElements = mapFilters.elements;
 const capacity = document.querySelector('#capacity');
+capacity.value = DEFAULT_CAPACITY;
 const roomNumber = document.querySelector('#room_number');
-
-const changeStatus = (boolean = true) => {
-  [...adFormElements].forEach( (item) => {
-    item.disabled = boolean;
-  });
-
-  [...mapFiltersElements].forEach( (item) => {
-    item.disabled = boolean;
-  });
-};
-
-if (document.readyState === LOADING_MODE || document.readyState === INTERACTIVE_MODE) {
-  changeStatus();
-  adForm.classList.toggle('ad-form--disabled', true);
-  mapFilters.classList.toggle('map__filters--disabled', true);
-}
-
-window.onload = () => {
-  changeStatus(false);
-  adForm.classList.toggle('ad-form--disabled', false);
-  mapFilters.classList.toggle('map__filters--disabled', false);
-  capacity.value = DEFAULT_CAPACITY;
-  roomNumber.value = DEFAULT_ROOM;
-};
+roomNumber.value = DEFAULT_ROOM;
 
 const title = document.querySelector('#title');
 const type = document.querySelector('#type');
@@ -119,4 +90,4 @@ timeout.addEventListener('change', () => {
   timein.value = timeout.value;
 });
 
-export {map};
+export {capacity, roomNumber, type, price};

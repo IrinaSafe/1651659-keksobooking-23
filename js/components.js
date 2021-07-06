@@ -79,11 +79,14 @@ const typesPrice = {
   },
 };
 
+const NUMBERS_OF_OFFERS = 10;
 const LOADING_MODE = 'loading';
 const INTERACTIVE_MODE = 'interactive';
 const DEFAULT_CAPACITY = '1';
 const DEFAULT_ROOM = '1';
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
+const defaultLat = 35.6895;
+const defaultLng = 139.692;
 
-export {AvatarImage, Lat, Lng, NUMBER_OF_DECIMAL, MaxPrice, RoomsCount, GuestsCount, TITLES_LENGTH, DESCRIPTIONS, FEATURES, TIME, PHOTO, typesPrice, LOADING_MODE, INTERACTIVE_MODE, DEFAULT_CAPACITY, DEFAULT_ROOM, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH};
+export {AvatarImage, Lat, Lng, NUMBER_OF_DECIMAL, MaxPrice, RoomsCount, GuestsCount, TITLES_LENGTH, DESCRIPTIONS, FEATURES, TIME, PHOTO, typesPrice, NUMBERS_OF_OFFERS, LOADING_MODE, INTERACTIVE_MODE, DEFAULT_CAPACITY, DEFAULT_ROOM, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH, defaultLat, defaultLng};

@@ -17,13 +17,13 @@ import {getRandomIntInclusive, getRandomCoordinates, getRandomElement} from './u
 
 const TITLES = new Array(TITLES_LENGTH).fill(null).map((item, index) => `Дом №${index + 1}`);
 
-const typesKey = Object.keys(typesPrice);
-const currentType = getRandomElement(typesKey);
-const minPrice = typesPrice[currentType].minPrice;
-
 const generateObject = (item, index) => {
   const lat = getRandomCoordinates(Lat.MIN, Lat.MAX, NUMBER_OF_DECIMAL);
   const lng = getRandomCoordinates(Lng.MIN, Lng.MAX, NUMBER_OF_DECIMAL);
+
+  const typesKey = Object.keys(typesPrice);
+  const currentType = getRandomElement(typesKey);
+  const minPrice = typesPrice[currentType].minPrice;
 
   return {
     author: {
