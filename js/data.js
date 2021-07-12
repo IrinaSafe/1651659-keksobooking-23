@@ -43,8 +43,8 @@ const generateObject = (item, index) => {
       photos: getRandomElement(PHOTO),
     },
     location: {
-      lat: lat,
-      lng: lng,
+      lat,
+      lng,
     },
   };
 };

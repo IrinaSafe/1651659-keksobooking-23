@@ -7,13 +7,16 @@ const templateDataError = document.querySelector('#data-error').content.querySel
 
 const addWindowsOk = () => {
   const successMessage = templateSuccess.cloneNode(true);
+
   addWindowsResult(map, successMessage);
 };
 
 const addWindowsError = () => {
   const errorMessage = templateError.cloneNode(true);
-  addWindowsResult(map, errorMessage);
   const closeErrorButton = errorMessage.querySelector('.error__button');
+
+  addWindowsResult(map, errorMessage);
+
   closeErrorButton.addEventListener('click', () => {
     errorMessage.style.display = 'none';
   });
@@ -21,6 +24,7 @@ const addWindowsError = () => {
 
 const addWindowErrorGetData = () => {
   const dataError = templateDataError.cloneNode(true);
+
   addWindowsResult(map, dataError);
 };
 
@@ -32,6 +36,7 @@ fetch('https://23.javascript.pages.academy/keksobooking/data')
 
 adForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
+
   const formData = new FormData(evt.target);
 
   fetch('https://23.javascript.pages.academy/keksobooking',

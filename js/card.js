@@ -1,5 +1,5 @@
 import {generateOffers} from './data.js';
-import {NUMBERS_OF_OFFERS, typesPrice} from './components.js';
+import {NUMBERS_OF_OFFERS, typesPrice, IMAGE_WIDTH, IMAGE_HEIGHT} from './components.js';
 
 const templatePopup = document.querySelector('#card').content.querySelector('.popup');
 
@@ -32,19 +32,21 @@ const addItem = (content, element) => {
   element.style.display = 'none';
 };
 
-const addImage = (content, element) => {
-  if (content) {
-    content.map((item, index) => {
+const addImage = (images, element) => {
+  if (images) {
+    images.forEach((item, index) => {
       const image = document.createElement('img');
-      image.src = content[index];
+
+      image.src = images[index];
       image.classList.add('popup__photo');
-      image.width = '45';
-      image.height = '40';
+      image.width = IMAGE_WIDTH;
+      image.height =  IMAGE_HEIGHT;
       image.alt = 'Фотография жилья';
+
       element.append(image);
     });
 
-    return;
+    return images.map;
   }
 
   element.style.display = 'none';
