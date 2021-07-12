@@ -40,9 +40,9 @@ const generateObject = (item, index) => {
       checkout: getRandomElement(TIME),
       features: getRandomElement(FEATURES),
       description: getRandomElement(DESCRIPTIONS),
-      photo: getRandomElement(PHOTO),
+      photos: getRandomElement(PHOTO),
     },
-    locations: {
+    location: {
       lat: lat,
       lng: lng,
     },
