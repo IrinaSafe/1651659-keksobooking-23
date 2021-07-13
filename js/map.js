@@ -3,10 +3,10 @@ import {
   typesPrice,
   LOADING_MODE,
   INTERACTIVE_MODE,
-  defaultLat,
-  defaultLng,
+  MAP_ZOOM,
   DEFAULT_CAPACITY,
-  DEFAULT_ROOM
+  DEFAULT_ROOM,
+  DEFAULT_COORDS
 } from './components.js';
 import {capacity, roomNumber, type, price} from './form.js';
 
@@ -19,6 +19,7 @@ const adFormElements = adForm.elements;
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersElements = mapFilters.elements;
 const address = document.querySelector('#address');
+const map = document.querySelector('.map__canvas');
 
 const changeStatus = (boolean = true) => {
   [...adFormElements].forEach( (item) => {
@@ -31,22 +32,22 @@ const changeStatus = (boolean = true) => {
 };
 
 if (document.readyState === LOADING_MODE || document.readyState === INTERACTIVE_MODE) {
-  changeStatus(false);
-  adForm.classList.toggle('ad-form--disabled', false);
-  mapFilters.classList.toggle('map__filters--disabled', false);
+  changeStatus();
+  adForm.classList.toggle('ad-form--disabled', true);
+  mapFilters.classList.toggle('map__filters--disabled', true);
 }
 
-const myMap = L.map('map-canvas')
+const myMap = L.map(map)
   .on('load', () => {
     changeStatus(false);
     adForm.classList.toggle('ad-form--disabled', false);
     mapFilters.classList.toggle('map__filters--disabled', false);
-    address.value = `${defaultLat}, ${defaultLng}`;
+    address.value = `${DEFAULT_COORDS.lat}, ${DEFAULT_COORDS.lng}`;
   })
-  .setView({
-    lat: defaultLat,
-    lng: defaultLng,
-  }, 10);
+  .setView(
+    {...DEFAULT_COORDS},
+    MAP_ZOOM,
+  );
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -56,16 +57,13 @@ L.tileLayer(
 ).addTo(myMap);
 
 const mainPinIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
+  iconUrl: 'img/main-pin.svg',
   iconSize: mainPickIconSize,
   iconAnchor: mainPickIconAnchor,
 });
 
 const mainPinMarker = L.marker(
-  {
-    lat: defaultLat,
-    lng: defaultLng,
-  },
+  {...DEFAULT_COORDS},
   {
     draggable: true,
     icon: mainPinIcon,
@@ -73,9 +71,6 @@ const mainPinMarker = L.marker(
 );
 
 mainPinMarker.addTo(myMap);
-
-// const address = document.querySelector('#address');
-// address.value = `${defaultLat}, ${defaultLng}`;
 
 const markerGroup = L.layerGroup().addTo(myMap);
 
@@ -85,17 +80,14 @@ mainPinMarker.on('moveend', (evt) => {
 });
 
 const markerIcon = L.icon({
-  iconUrl: '../img/pin.svg',
+  iconUrl: 'img/pin.svg',
   iconSize: markerIconSize,
   iconAnchor: markerIconAnchor,
 });
 
 const addPoint = (point) => {
   const newMarkers = L.marker(
-    {
-      lat: point.locations.lat,
-      lng: point.locations.lng,
-    },
+    {...point.location},
     {
       icon: markerIcon,
     },
@@ -112,38 +104,35 @@ const addPoint = (point) => {
 };
 
 const addMarkers = (points) => {
-  points.forEach((point) => {
-    addPoint(point);
-  });
+  points.forEach(addPoint);
 };
 
-const defaultSetting = () => {
+const setDefaultSetting = () => {
   adForm.reset();
   mapFilters.reset();
 
-  mainPinMarker.setLatLng({
-    lat: defaultLat,
-    lng: defaultLng,
-  });
+  mainPinMarker.setLatLng({...DEFAULT_COORDS});
 
-  myMap.setView({
-    lat: defaultLat,
-    lng: defaultLng,
-  }, 10);
+  myMap.setView (
+    {...DEFAULT_COORDS},
+    MAP_ZOOM,
+  );
 
   markerGroup.clearLayers();
 
-  address.value = `${defaultLat}, ${defaultLng}`;
+  address.value = `${DEFAULT_COORDS.lat}, ${DEFAULT_COORDS.lng}`;
   capacity.value = DEFAULT_CAPACITY;
   roomNumber.value = DEFAULT_ROOM;
   price.placeholder = typesPrice[type.value].minPrice;
 };
 
+const onResetHandler = (evt) => {
+  evt.preventDefault();
+  setDefaultSetting();
+};
+
 const resetButton = document.querySelector('.ad-form__reset');
 
-resetButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  defaultSetting();
-});
+resetButton.addEventListener('click', onResetHandler);
 
-export {addMarkers};
+export {addMarkers, map, adForm, setDefaultSetting};

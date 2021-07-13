@@ -60,4 +60,32 @@ const getRandomIndexElement = (element) => getRandomIntInclusive(0, element.leng
 */
 const getRandomElement = (element) => element[getRandomIndexElement(element)];
 
-export {getRandomIntInclusive, getRandomCoordinates, getRandomElement};
+const checkStatus = (response) => {
+  if (response.ok) {
+    return response;
+  }
+
+  throw new Error(`${response.status}: ${response.statusText}`);
+};
+
+const clickClose = (element) => {
+  window.addEventListener('click', () => {
+    element.style.display = 'none';
+  });
+};
+
+const keydownClose = (element) => {
+  window.addEventListener('keydown', (evt) => {
+    if (evt.key === 27 || evt.key === 'Escape') {
+      element.style.display = 'none';
+    }
+  });
+};
+
+const addWindowsResult = (container, element) => {
+  container.appendChild(element);
+  keydownClose(element);
+  clickClose(element);
+};
+
+export {getRandomIntInclusive, getRandomCoordinates, getRandomElement, checkStatus, clickClose, keydownClose, addWindowsResult};
