@@ -104,7 +104,7 @@ const addPoint = (point) => {
 };
 
 const addMarkers = (points) => {
-  points.forEach(addPoint);
+  points.slice(0, 10).forEach(addPoint);
 };
 
 const setDefaultSetting = () => {
@@ -135,4 +135,4 @@ const resetButton = document.querySelector('.ad-form__reset');
 
 resetButton.addEventListener('click', onResetHandler);
 
-export {addMarkers, map, adForm, setDefaultSetting};
+export {addMarkers, map, adForm, setDefaultSetting, mapFilters, markerGroup, mapFiltersElements};

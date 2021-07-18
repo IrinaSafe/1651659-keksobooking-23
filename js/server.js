@@ -1,5 +1,6 @@
 import {checkStatus, addWindowsResult} from './util.js';
-import {addMarkers, map, adForm, setDefaultSetting} from './map.js';
+import {mapFiltersElements, map, adForm, setDefaultSetting} from './map.js';
+import {getFilteredOffers} from './filters.js';
 
 const templateSuccess = document.querySelector('#success').content.querySelector('.success');
 const templateError = document.querySelector('#error').content.querySelector('.error');
@@ -25,13 +26,17 @@ const addWindowsError = () => {
 const addWindowErrorGetData = () => {
   const dataError = templateDataError.cloneNode(true);
 
+  [...mapFiltersElements].forEach( (item) => {
+    item.disabled = true;
+  });
+
   addWindowsResult(map, dataError);
 };
 
 fetch('https://23.javascript.pages.academy/keksobooking/data')
   .then(checkStatus)
   .then((response) => response.json())
-  .then(addMarkers)
+  .then(getFilteredOffers)
   .catch(addWindowErrorGetData);
 
 adForm.addEventListener('submit', (evt) => {
@@ -50,3 +55,5 @@ adForm.addEventListener('submit', (evt) => {
     .then(addWindowsOk)
     .catch(addWindowsError);
 });
+
+export {addWindowsError};
