@@ -1,5 +1,5 @@
 import {mapFilters, addMarkers, markerGroup} from './map.js';
-import {filterPrices, RERENDER_DELAY} from './components.js';
+import {filterPrices, RERENDER_DELAY, RankValue} from './components.js';
 import {debounce} from './utils/debounce.js';
 
 const housingType = mapFilters.querySelector('#housing-type');
@@ -20,28 +20,23 @@ const sortFeautures = (item) => {
   let rank = 0;
 
   if (item) {
-    for (let i = 0; i < item.length; i++) {
-      if (item[i] === wifi.value | item[i] === conditioner.value) {
-        rank += 4;
+    item.forEach((elem) => {
+      if (elem === wifi.value | elem === conditioner.value) {
+
+        return rank += RankValue.HIGH;
       }
 
-      if (item[i] === parking.value) {
-        rank += 3;
+      if (elem === parking.value | elem === elevator.value) {
+        return rank += RankValue.MIDDLE;
       }
 
-      if (item[i] === elevator.value) {
-        rank += 2;
+      if (elem === dishwasher.value | elem === washer.value) {
+        return rank += RankValue.LOW;
       }
 
-      if (item[i] === dishwasher.value | item[i] === washer.value) {
-        rank += 1;
-      }
-    }
-
-    return rank;
+      return rank;
+    });
   }
-
-  return rank;
 };
 
 const compareOffers = (firstOffer, secondOffer) => {
@@ -51,37 +46,13 @@ const compareOffers = (firstOffer, secondOffer) => {
   return rankB - rankA;
 };
 
-const filtersType = (item) => {
-  if (housingType.value === 'any') {
-    return true;
-  }
+const filtersType = (item) => housingType.value === 'any' || item.offer.type === housingType.value;
 
-  return item.offer.type === housingType.value;
-};
+const filtersPrice = (item) => housingPrice.value === 'any' || item.offer.price >= filterPrices[housingPrice.value].minPrice & item.offer.price <= filterPrices[housingPrice.value].maxPrice;
 
-const filtersPrice = (item) => {
-  if (housingPrice.value === 'any') {
-    return true;
-  }
+const filtersRooms = (item) => housingRooms.value === 'any' || item.offer.rooms === parseFloat(housingRooms.value);
 
-  return item.offer.price >= filterPrices[housingPrice.value].MinPrice & item.offer.price <= filterPrices[housingPrice.value].MaxPrice;
-};
-
-const filtersRooms = (item) => {
-  if (housingRooms.value === 'any') {
-    return true;
-  }
-
-  return item.offer.rooms === parseFloat(housingRooms.value);
-};
-
-const filtersGuests = (item) => {
-  if (housingGuests.value === 'any') {
-    return true;
-  }
-
-  return item.offer.guests === parseFloat(housingGuests.value);
-};
+const filtersGuests = (item) => housingGuests.value === 'any' || item.offer.guests === parseFloat(housingGuests.value);
 
 const filtersFeatures = (item) => {
   const features = item.offer.features;

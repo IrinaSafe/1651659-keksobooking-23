@@ -6,7 +6,8 @@ import {
   MAP_ZOOM,
   DEFAULT_CAPACITY,
   DEFAULT_ROOM,
-  DEFAULT_COORDS
+  DEFAULT_COORDS,
+  PointsSliceIndex
 } from './components.js';
 import {capacity, roomNumber, type, price} from './form.js';
 
@@ -104,7 +105,7 @@ const addPoint = (point) => {
 };
 
 const addMarkers = (points) => {
-  points.slice(0, 10).forEach(addPoint);
+  points.slice(PointsSliceIndex.BEGIN, PointsSliceIndex.END).forEach(addPoint);
 };
 
 const setDefaultSetting = () => {
