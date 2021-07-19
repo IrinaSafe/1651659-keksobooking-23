@@ -6,7 +6,8 @@ import {
   MAP_ZOOM,
   DEFAULT_CAPACITY,
   DEFAULT_ROOM,
-  DEFAULT_COORDS
+  DEFAULT_COORDS,
+  PointsSliceIndex
 } from './components.js';
 import {capacity, roomNumber, type, price} from './form.js';
 
@@ -104,7 +105,7 @@ const addPoint = (point) => {
 };
 
 const addMarkers = (points) => {
-  points.forEach(addPoint);
+  points.slice(PointsSliceIndex.BEGIN, PointsSliceIndex.END).forEach(addPoint);
 };
 
 const setDefaultSetting = () => {
@@ -135,4 +136,4 @@ const resetButton = document.querySelector('.ad-form__reset');
 
 resetButton.addEventListener('click', onResetHandler);
 
-export {addMarkers, map, adForm, setDefaultSetting};
+export {addMarkers, map, adForm, setDefaultSetting, mapFilters, markerGroup, mapFiltersElements};

@@ -95,4 +95,34 @@ const DEFAULT_COORDS = {
   lng: 139.692,
 };
 
-export {AvatarImage, Lat, Lng, NUMBER_OF_DECIMAL, MaxPrice, RoomsCount, GuestsCount, TITLES_LENGTH, DESCRIPTIONS, FEATURES, TIME, PHOTO, typesPrice, NUMBERS_OF_OFFERS, LOADING_MODE, INTERACTIVE_MODE, DEFAULT_CAPACITY, DEFAULT_ROOM, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH, MAP_ZOOM, DEFAULT_COORDS, IMAGE_WIDTH, IMAGE_HEIGHT};
+const filterPrices = {
+  low: {
+    minPrice: 0,
+    maxPrice: 9999,
+  },
+
+  middle: {
+    minPrice: 10000,
+    maxPrice: 50000,
+  },
+
+  high: {
+    minPrice: 50000,
+    maxPrice: Infinity,
+  },
+};
+
+const RERENDER_DELAY = 500;
+
+const PointsSliceIndex = {
+  BEGIN: 0,
+  END: 10,
+};
+
+const RankValue = {
+  HIGH: 4,
+  MIDDLE: 3,
+  LOW: 1,
+};
+
+export {AvatarImage, Lat, Lng, NUMBER_OF_DECIMAL, MaxPrice, RoomsCount, GuestsCount, TITLES_LENGTH, DESCRIPTIONS, FEATURES, TIME, PHOTO, typesPrice, NUMBERS_OF_OFFERS, LOADING_MODE, INTERACTIVE_MODE, DEFAULT_CAPACITY, DEFAULT_ROOM, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH, MAP_ZOOM, DEFAULT_COORDS, IMAGE_WIDTH, IMAGE_HEIGHT, filterPrices, RERENDER_DELAY, PointsSliceIndex, RankValue};
