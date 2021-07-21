@@ -44,17 +44,19 @@ const FEATURES = [
   'conditioner',
 ];
 
-const TIME = [
+const TIME_OPTIONS = [
   '12:00',
   '13:00',
   '14:00',
 ];
 
-const PHOTO =[
+const PHOTOS =[
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
+
+const PRICE_MEASUREMENT =  '₽/ночь';
 
 const typesPrice = {
   palace: {
@@ -86,8 +88,8 @@ const DEFAULT_CAPACITY = '1';
 const DEFAULT_ROOM = '1';
 const TITLE_MIN_LENGTH = 30;
 const TITLE_MAX_LENGTH = 100;
-const IMAGE_WIDTH = '45';
-const IMAGE_HEIGHT = '40';
+const IMAGE_WIDTH = 45;
+const IMAGE_HEIGHT = 40;
 const MAP_ZOOM = 13;
 
 const DEFAULT_COORDS = {
@@ -125,4 +127,17 @@ const RankValue = {
   LOW: 1,
 };
 
-export {AvatarImage, Lat, Lng, NUMBER_OF_DECIMAL, MaxPrice, RoomsCount, GuestsCount, TITLES_LENGTH, DESCRIPTIONS, FEATURES, TIME, PHOTO, typesPrice, NUMBERS_OF_OFFERS, LOADING_MODE, INTERACTIVE_MODE, DEFAULT_CAPACITY, DEFAULT_ROOM, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH, MAP_ZOOM, DEFAULT_COORDS, IMAGE_WIDTH, IMAGE_HEIGHT, filterPrices, RERENDER_DELAY, PointsSliceIndex, RankValue};
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
+const PreviewImageSizes = {
+  WIDTH: 70,
+  HEIGHT: 70,
+};
+
+const DEFAULT_IMAGE = 'img/muffin-grey.svg';
+
+const SERVER_DATA = 'https://23.javascript.pages.academy/keksobooking/data';
+const SERVER_POST = 'https://23.javascript.pages.academy/keksobooking';
+const SERVER_POST_METOD = 'POST';
+
+export {AvatarImage, Lat, Lng, NUMBER_OF_DECIMAL, MaxPrice, PRICE_MEASUREMENT, RoomsCount, GuestsCount, TITLES_LENGTH, DESCRIPTIONS, FEATURES, TIME_OPTIONS, PHOTOS, typesPrice, NUMBERS_OF_OFFERS, LOADING_MODE, INTERACTIVE_MODE, DEFAULT_CAPACITY, DEFAULT_ROOM, TITLE_MIN_LENGTH, TITLE_MAX_LENGTH, MAP_ZOOM, DEFAULT_COORDS, IMAGE_WIDTH, IMAGE_HEIGHT, filterPrices, RERENDER_DELAY, PointsSliceIndex, RankValue, FILE_TYPES, PreviewImageSizes,  DEFAULT_IMAGE, SERVER_DATA, SERVER_POST, SERVER_POST_METOD};

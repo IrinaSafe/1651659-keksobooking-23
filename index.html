@@ -237,7 +237,14 @@
       <p class="data-error__message">Ошибка получения данных<br>Попробуйте перезагрузить страницу</p>
     </div>
   </template>
-  <script src="js/main.js" type="module"></script>
+
+  <!-- Сообщение об ошибке при неверном типе файла -->
+  <template id="type-error">
+    <div class="type-error">
+      <p class="type-error__message">Неверный тип файла<br>Допустимые типы файлов: gif, jpg, jpeg, png</p>
+    </div>
+  </template>
+  <script src="js/index.js" type="module"></script>
   <script src="leaflet/leaflet.js"></script>
 </body>
 </html>

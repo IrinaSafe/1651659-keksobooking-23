@@ -7,9 +7,9 @@ const housingPrice = mapFilters.querySelector('#housing-price');
 const housingRooms = mapFilters.querySelector('#housing-rooms');
 const housingGuests = mapFilters.querySelector('#housing-guests');
 const housingFeatures = mapFilters.querySelector('#housing-features');
-const featuresInput = [...housingFeatures.querySelectorAll('input')];
+const featuresInputs = [...housingFeatures.querySelectorAll('input')];
 
-const sortFeautures = (item) => {
+const sortFeatures = (item) => {
   const wifi = housingFeatures.querySelector('#filter-wifi');
   const dishwasher = housingFeatures.querySelector('#filter-dishwasher');
   const parking = housingFeatures.querySelector('#filter-parking');
@@ -21,34 +21,34 @@ const sortFeautures = (item) => {
 
   if (item) {
     item.forEach((elem) => {
-      if (elem === wifi.value | elem === conditioner.value) {
+      if (elem === wifi.value || elem === conditioner.value) {
 
         return rank += RankValue.HIGH;
       }
 
-      if (elem === parking.value | elem === elevator.value) {
+      if (elem === parking.value || elem === elevator.value) {
         return rank += RankValue.MIDDLE;
       }
 
-      if (elem === dishwasher.value | elem === washer.value) {
+      if (elem === dishwasher.value || elem === washer.value) {
         return rank += RankValue.LOW;
       }
-
-      return rank;
     });
   }
+
+  return rank;
 };
 
 const compareOffers = (firstOffer, secondOffer) => {
-  const rankA = sortFeautures(firstOffer.offer.features);
-  const rankB = sortFeautures(secondOffer.offer.features);
+  const rankA = sortFeatures(firstOffer.offer.features);
+  const rankB = sortFeatures(secondOffer.offer.features);
 
   return rankB - rankA;
 };
 
 const filtersType = (item) => housingType.value === 'any' || item.offer.type === housingType.value;
 
-const filtersPrice = (item) => housingPrice.value === 'any' || item.offer.price >= filterPrices[housingPrice.value].minPrice & item.offer.price <= filterPrices[housingPrice.value].maxPrice;
+const filtersPrice = (item) => housingPrice.value === 'any' || item.offer.price >= filterPrices[housingPrice.value].minPrice && item.offer.price <= filterPrices[housingPrice.value].maxPrice;
 
 const filtersRooms = (item) => housingRooms.value === 'any' || item.offer.rooms === parseFloat(housingRooms.value);
 
@@ -56,13 +56,17 @@ const filtersGuests = (item) => housingGuests.value === 'any' || item.offer.gues
 
 const filtersFeatures = (item) => {
   const features = item.offer.features;
-  const featuresChecked = featuresInput.filter((input) => input.checked);
+  const featuresChecked = featuresInputs.filter((input) => input.checked);
 
   return featuresChecked.every((feature) => features && features.includes(feature.value));
 };
 
 const getFilteredOffers = (array) => {
   mapFilters.addEventListener('change', debounce(() => {
+    getFilteredOffers(array);
+  }, RERENDER_DELAY));
+
+  mapFilters.addEventListener('reset', debounce(() => {
     getFilteredOffers(array);
   }, RERENDER_DELAY));
 

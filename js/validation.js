@@ -21,7 +21,7 @@ type.addEventListener('change', (evt) => {
   price.placeholder = typesPrice[evt.target.value].minPrice;
 });
 
-const validationTitle = () => {
+const checkValidationTitle = () => {
   const titleLength = title.value.length;
 
   if (titleLength < TITLE_MIN_LENGTH) {
@@ -37,9 +37,9 @@ const validationTitle = () => {
   title.reportValidity();
 };
 
-title.addEventListener('input', validationTitle);
+title.addEventListener('input', checkValidationTitle);
 
-const validationPrice = () => {
+const checkValidationPrice = () => {
   const priceValue = price.value;
 
   if (priceValue < typesPrice[type.value].minPrice && priceValue !== '') {
@@ -55,12 +55,13 @@ const validationPrice = () => {
   price.reportValidity();
 };
 
-price.addEventListener('input', validationPrice);
+price.addEventListener('input', checkValidationPrice);
+type.addEventListener('change', checkValidationPrice);
 
-const validationCapacity = (room, guest, container) => {
-  if (room === '100' & guest !== '0') {
+const checkValidationCapacity = (room, guest, container) => {
+  if (room === '100' && guest !== '0') {
     container.setCustomValidity('Для 100 комнат подходит только вариант размещения "не для гостей"');
-  } else if (guest === '0' & room !== '100') {
+  } else if (guest === '0' && room !== '100') {
     container.setCustomValidity('Для варианта "не для гостей" подходит только 100 комнат');
   } else if (guest > room) {
     container.setCustomValidity('Гостей больше чем комнат');
@@ -72,11 +73,11 @@ const validationCapacity = (room, guest, container) => {
 };
 
 roomNumber.addEventListener('change', (evt) => {
-  validationCapacity(evt.target.value, capacity.value, roomNumber);
+  checkValidationCapacity(evt.target.value, capacity.value, roomNumber);
 });
 
 capacity.addEventListener('change', (evt) => {
-  validationCapacity(roomNumber.value, evt.target.value, capacity);
+  checkValidationCapacity(roomNumber.value, evt.target.value, roomNumber);
 });
 
 const timein = document.querySelector('#timein');

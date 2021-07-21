@@ -1007,7 +1007,8 @@ fieldset {
   opacity: 0.6;
 }
 
-.data-error {
+.data-error,
+.type-error {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1024,7 +1025,12 @@ fieldset {
   z-index: 1111;
 }
 
-.data-error__message {
+.type-error {
+  top: 90%;
+}
+
+.data-error__message,
+.type-error__message {
   color: #ffffff;
   font-size: 25px;
   font-weight: 700;

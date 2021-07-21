@@ -1,20 +1,16 @@
 import {renderTemplate} from './card.js';
 import {
-  typesPrice,
   LOADING_MODE,
   INTERACTIVE_MODE,
   MAP_ZOOM,
-  DEFAULT_CAPACITY,
-  DEFAULT_ROOM,
   DEFAULT_COORDS,
   PointsSliceIndex
 } from './components.js';
-import {capacity, roomNumber, type, price} from './form.js';
 
-const mainPickIconSize = [52, 52];
-const mainPickIconAnchor = [26, 52];
-const markerIconSize = [40, 40];
-const markerIconAnchor = [20, 40];
+const mainPickIconSizes = [52, 52];
+const mainPickIconAnchors = [26, 52];
+const markerIconSizes = [40, 40];
+const markerIconAnchors = [20, 40];
 const adForm = document.querySelector('.ad-form');
 const adFormElements = adForm.elements;
 const mapFilters = document.querySelector('.map__filters');
@@ -59,8 +55,8 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: mainPickIconSize,
-  iconAnchor: mainPickIconAnchor,
+  iconSize: mainPickIconSizes,
+  iconAnchor: mainPickIconAnchors,
 });
 
 const mainPinMarker = L.marker(
@@ -82,8 +78,8 @@ mainPinMarker.on('moveend', (evt) => {
 
 const markerIcon = L.icon({
   iconUrl: 'img/pin.svg',
-  iconSize: markerIconSize,
-  iconAnchor: markerIconAnchor,
+  iconSize: markerIconSizes,
+  iconAnchor: markerIconAnchors,
 });
 
 const addPoint = (point) => {
@@ -108,32 +104,4 @@ const addMarkers = (points) => {
   points.slice(PointsSliceIndex.BEGIN, PointsSliceIndex.END).forEach(addPoint);
 };
 
-const setDefaultSetting = () => {
-  adForm.reset();
-  mapFilters.reset();
-
-  mainPinMarker.setLatLng({...DEFAULT_COORDS});
-
-  myMap.setView (
-    {...DEFAULT_COORDS},
-    MAP_ZOOM,
-  );
-
-  markerGroup.clearLayers();
-
-  address.value = `${DEFAULT_COORDS.lat}, ${DEFAULT_COORDS.lng}`;
-  capacity.value = DEFAULT_CAPACITY;
-  roomNumber.value = DEFAULT_ROOM;
-  price.placeholder = typesPrice[type.value].minPrice;
-};
-
-const onResetHandler = (evt) => {
-  evt.preventDefault();
-  setDefaultSetting();
-};
-
-const resetButton = document.querySelector('.ad-form__reset');
-
-resetButton.addEventListener('click', onResetHandler);
-
-export {addMarkers, map, adForm, setDefaultSetting, mapFilters, markerGroup, mapFiltersElements};
+export {addMarkers, map, adForm, mapFilters, markerGroup, mapFiltersElements, address, mainPinMarker, myMap};

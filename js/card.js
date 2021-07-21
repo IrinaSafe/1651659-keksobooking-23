@@ -1,10 +1,10 @@
 import {generateOffers} from './data.js';
-import {NUMBERS_OF_OFFERS, typesPrice, IMAGE_WIDTH, IMAGE_HEIGHT} from './components.js';
+import {NUMBERS_OF_OFFERS, typesPrice, IMAGE_WIDTH, IMAGE_HEIGHT, PRICE_MEASUREMENT} from './components.js';
 
 const templatePopup = document.querySelector('#card').content.querySelector('.popup');
 
 const priceDescription = document.createElement('span');
-priceDescription.textContent = '₽/ночь';
+priceDescription.textContent = PRICE_MEASUREMENT;
 
 const clearContent = (element) => element.innerHTML = '';
 
@@ -83,4 +83,3 @@ const offers = generateOffers(NUMBERS_OF_OFFERS);
 const bindPopup = offers.slice(0, NUMBERS_OF_OFFERS);
 
 export {renderTemplate, bindPopup};
-

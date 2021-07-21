@@ -9,8 +9,8 @@ import {
   TITLES_LENGTH,
   DESCRIPTIONS,
   FEATURES,
-  TIME,
-  PHOTO,
+  TIME_OPTIONS,
+  PHOTOS,
   typesPrice
 } from './components.js';
 import {getRandomIntInclusive, getRandomCoordinates, getRandomElement} from './util.js';
@@ -36,11 +36,11 @@ const generateObject = (item, index) => {
       price: getRandomIntInclusive(minPrice, MaxPrice),
       rooms: getRandomIntInclusive(RoomsCount.MIN, RoomsCount.MAX),
       guests: getRandomIntInclusive(GuestsCount.MIN, GuestsCount.MAX),
-      checkin: getRandomElement(TIME),
-      checkout: getRandomElement(TIME),
+      checkin: getRandomElement(TIME_OPTIONS),
+      checkout: getRandomElement(TIME_OPTIONS),
       features: getRandomElement(FEATURES),
       description: getRandomElement(DESCRIPTIONS),
-      photos: getRandomElement(PHOTO),
+      photos: getRandomElement(PHOTOS),
     },
     location: {
       lat,

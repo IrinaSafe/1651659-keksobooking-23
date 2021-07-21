@@ -1,3 +1,4 @@
+import {DEFAULT_IMAGE} from './components.js';
 /**
  * Функция, возвращающая случайное целое число из переданного диапазона включительно.
  * @param {number} min - минимальное значение диапазона
@@ -65,16 +66,16 @@ const checkStatus = (response) => {
     return response;
   }
 
-  throw new Error(`${response.status}: ${response.statusText}`);
+  throw new Error (`${response.status}: ${response.statusText}`);
 };
 
-const clickClose = (element) => {
+const closeClick = (element) => {
   window.addEventListener('click', () => {
     element.style.display = 'none';
   });
 };
 
-const keydownClose = (element) => {
+const closeKeydown = (element) => {
   window.addEventListener('keydown', (evt) => {
     if (evt.key === 27 || evt.key === 'Escape') {
       element.style.display = 'none';
@@ -84,8 +85,13 @@ const keydownClose = (element) => {
 
 const addWindowsResult = (container, element) => {
   container.appendChild(element);
-  keydownClose(element);
-  clickClose(element);
+  closeKeydown(element);
+  closeClick(element);
 };
 
-export {getRandomIntInclusive, getRandomCoordinates, getRandomElement, checkStatus, clickClose, keydownClose, addWindowsResult};
+const resetPrewiew = (input, image) => {
+  input.value = '';
+  image.src = DEFAULT_IMAGE;
+};
+
+export {getRandomIntInclusive, getRandomCoordinates, getRandomElement, checkStatus, addWindowsResult, resetPrewiew};

@@ -1,39 +1,39 @@
-import {checkStatus, addWindowsResult} from './util.js';
-import {mapFiltersElements, map, adForm, setDefaultSetting} from './map.js';
+import {checkStatus} from './util.js';
+import {adForm} from './map.js';
 import {getFilteredOffers} from './filters.js';
+import {setDefaultSetting} from './reset-form.js';
+import {SERVER_DATA, SERVER_POST, SERVER_POST_METOD} from './components.js';
+import {addWindowsOk, addWindowsError, addWindowErrorGetData} from './messages.js';
 
-const templateSuccess = document.querySelector('#success').content.querySelector('.success');
-const templateError = document.querySelector('#error').content.querySelector('.error');
-const templateDataError = document.querySelector('#data-error').content.querySelector('.data-error');
+const getServerData = () =>
+  fetch(SERVER_DATA)
+    .then((response) => {
+      if (response.ok) {
+        return response;
+      } else {
+        throw new Error (`${response.status}: ${response.statusText}`);
+      }
+    })
+    .catch((error) => error);
 
-const addWindowsOk = () => {
-  const successMessage = templateSuccess.cloneNode(true);
+const pushServerData = (formData) =>
+  fetch(SERVER_POST,
+    {
+      method: SERVER_POST_METOD,
+      body: formData,
+    })
+    .then((response) => {
+      if (response.ok) {
+        addWindowsOk();
+        return response;
+      } else {
+        throw new Error (`${response.status}: ${response.statusText}`);
+      }
+    })
+    .catch((error) => error);
 
-  addWindowsResult(map, successMessage);
-};
 
-const addWindowsError = () => {
-  const errorMessage = templateError.cloneNode(true);
-  const closeErrorButton = errorMessage.querySelector('.error__button');
-
-  addWindowsResult(map, errorMessage);
-
-  closeErrorButton.addEventListener('click', () => {
-    errorMessage.style.display = 'none';
-  });
-};
-
-const addWindowErrorGetData = () => {
-  const dataError = templateDataError.cloneNode(true);
-
-  [...mapFiltersElements].forEach( (item) => {
-    item.disabled = true;
-  });
-
-  addWindowsResult(map, dataError);
-};
-
-fetch('https://23.javascript.pages.academy/keksobooking/data')
+getServerData()
   .then(checkStatus)
   .then((response) => response.json())
   .then(getFilteredOffers)
@@ -44,15 +44,9 @@ adForm.addEventListener('submit', (evt) => {
 
   const formData = new FormData(evt.target);
 
-  fetch('https://23.javascript.pages.academy/keksobooking',
-    {
-      method: 'POST',
-      body: formData,
-    },
-  )
+  pushServerData(formData)
     .then(checkStatus)
     .then(setDefaultSetting)
-    .then(addWindowsOk)
     .catch(addWindowsError);
 });
 
