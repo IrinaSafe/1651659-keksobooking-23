@@ -1,4 +1,3 @@
-import {checkStatus} from './util.js';
 import {adForm} from './map.js';
 import {getFilteredOffers} from './filters.js';
 import {setDefaultSetting} from './reset-form.js';
@@ -13,8 +12,8 @@ const getServerData = () =>
       } else {
         throw new Error (`${response.status}: ${response.statusText}`);
       }
-    })
-    .catch((error) => error);
+    });
+
 
 const pushServerData = (formData) =>
   fetch(SERVER_POST,
@@ -26,15 +25,12 @@ const pushServerData = (formData) =>
       if (response.ok) {
         addWindowsOk();
         return response;
-      } else {
-        throw new Error (`${response.status}: ${response.statusText}`);
       }
-    })
-    .catch((error) => error);
 
+      throw new Error (`${response.status}: ${response.statusText}`);
+    });
 
 getServerData()
-  .then(checkStatus)
   .then((response) => response.json())
   .then(getFilteredOffers)
   .catch(addWindowErrorGetData);
@@ -45,7 +41,6 @@ adForm.addEventListener('submit', (evt) => {
   const formData = new FormData(evt.target);
 
   pushServerData(formData)
-    .then(checkStatus)
     .then(setDefaultSetting)
     .catch(addWindowsError);
 });

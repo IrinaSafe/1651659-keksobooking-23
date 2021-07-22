@@ -28,23 +28,29 @@ const changeStatus = (boolean = true) => {
   });
 };
 
-if (document.readyState === LOADING_MODE || document.readyState === INTERACTIVE_MODE) {
-  changeStatus();
-  adForm.classList.toggle('ad-form--disabled', true);
-  mapFilters.classList.toggle('map__filters--disabled', true);
-}
+const initMap = () => {
+  changeStatus(false);
+  adForm.classList.toggle('ad-form--disabled', false);
+  mapFilters.classList.toggle('map__filters--disabled', false);
+  address.value = `${DEFAULT_COORDS.lat}, ${DEFAULT_COORDS.lng}`;
+};
 
-const myMap = L.map(map)
-  .on('load', () => {
-    changeStatus(false);
-    adForm.classList.toggle('ad-form--disabled', false);
-    mapFilters.classList.toggle('map__filters--disabled', false);
-    address.value = `${DEFAULT_COORDS.lat}, ${DEFAULT_COORDS.lng}`;
-  })
-  .setView(
-    {...DEFAULT_COORDS},
-    MAP_ZOOM,
-  );
+const myMap = L.map(map);
+
+const startApp = () => {
+  if (document.readyState === LOADING_MODE || document.readyState === INTERACTIVE_MODE) {
+    changeStatus();
+    adForm.classList.toggle('ad-form--disabled', true);
+    mapFilters.classList.toggle('map__filters--disabled', true);
+  }
+
+  myMap
+    .on('load', initMap)
+    .setView(
+      {...DEFAULT_COORDS},
+      MAP_ZOOM,
+    );
+};
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -104,4 +110,4 @@ const addMarkers = (points) => {
   points.slice(PointsSliceIndex.BEGIN, PointsSliceIndex.END).forEach(addPoint);
 };
 
-export {addMarkers, map, adForm, mapFilters, markerGroup, mapFiltersElements, address, mainPinMarker, myMap};
+export {addMarkers, map, adForm, mapFilters, markerGroup, mapFiltersElements, address, mainPinMarker, myMap, startApp};

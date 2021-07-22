@@ -61,21 +61,13 @@ const getRandomIndexElement = (element) => getRandomIntInclusive(0, element.leng
 */
 const getRandomElement = (element) => element[getRandomIndexElement(element)];
 
-const checkStatus = (response) => {
-  if (response.ok) {
-    return response;
-  }
-
-  throw new Error (`${response.status}: ${response.statusText}`);
-};
-
-const closeClick = (element) => {
+const closeModalWindow = (element) => {
   window.addEventListener('click', () => {
     element.style.display = 'none';
   });
 };
 
-const closeKeydown = (element) => {
+const closeModalWindowEscape = (element) => {
   window.addEventListener('keydown', (evt) => {
     if (evt.key === 27 || evt.key === 'Escape') {
       element.style.display = 'none';
@@ -85,8 +77,8 @@ const closeKeydown = (element) => {
 
 const addWindowsResult = (container, element) => {
   container.appendChild(element);
-  closeKeydown(element);
-  closeClick(element);
+  closeModalWindowEscape(element);
+  closeModalWindow(element);
 };
 
 const resetPrewiew = (input, image) => {
@@ -94,4 +86,4 @@ const resetPrewiew = (input, image) => {
   image.src = DEFAULT_IMAGE;
 };
 
-export {getRandomIntInclusive, getRandomCoordinates, getRandomElement, checkStatus, addWindowsResult, resetPrewiew};
+export {getRandomIntInclusive, getRandomCoordinates, getRandomElement, addWindowsResult, resetPrewiew};
